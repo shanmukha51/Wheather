@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weatherly | Weather Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="sky-background">
+        <div class="sun"></div>
+        <div class="cloud cloud-one"></div>
+        <div class="cloud cloud-two"></div>
+        <div class="cloud cloud-three"></div>
+    </div>
+
+
+    <!-- Navigation -->
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <div class="logo">
+                <div class="logo-symbol">W</div>
+
+                <div>
+                    <div class="logo-text">Weatherly</div>
+                    <div class="logo-subtitle">Smart Weather</div>
+                </div>
+            </div>
+
+
+            <nav class="nav-links">
+                <a href="#today">Today</a>
+                <a href="#hourly">Hourly</a>
+                <a href="#forecast">7 Days</a>
+            </nav>
+
+
+            <button class="theme-button" id="themeButton">
+                🌙
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="main-container">
+
+
+        <!-- Hero -->
+        <section class="welcome-section">
+
+            <div class="welcome-content">
+
+                <div class="welcome-badge">
+                    ✦ LIVE WEATHER
+                </div>
+
+                <h1>
+                    Weather at a glance.
+                </h1>
+
+                <p>
+                    Discover accurate weather information for any city around the world.
+                </p>
+
+            </div>
+
+
+            <!-- Search -->
+            <div class="search-area">
+
+                <div class="search-box">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input
+                        type="text"
+                        id="cityInput"
+                        placeholder="Search city..."
+                        autocomplete="off"
+                    >
+
+                    <button id="searchButton">
+                        Search
+                    </button>
+
+                </div>
+
+
+                <button
+                    class="location-button"
+                    id="locationButton"
+                >
+                    📍 My Location
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Error -->
+        <div
+            class="error-message"
+            id="errorMessage"
+        ></div>
+
+
+        <!-- Loading -->
+        <div
+            class="loading-screen"
+            id="loading"
+        >
+            <div class="loader"></div>
+            <p>Loading weather...</p>
+        </div>
+
+
+        <!-- Weather -->
+        <div id="weatherContent">
+
+
+            <!-- Current Weather -->
+            <section
+                class="current-weather-card"
+                id="today"
+            >
+
+                <div class="weather-location">
+
+                    <div>
+                        <span class="location-label">
+                            CURRENT WEATHER
+                        </span>
+
+                        <h2 id="cityName">
+                            Vijayawada
+                        </h2>
+
+                        <p id="countryName">
+                            India
+                        </p>
+                    </div>
+
+
+                    <div class="live-status">
+                        <span></span>
+                        LIVE
+                    </div>
+
+                </div>
+
+
+                <div class="main-weather">
+
+                    <div
+                        class="weather-icon"
+                        id="weatherIcon"
+                    >
+                        ☀️
+                    </div>
+
+
+                    <div class="temperature-area">
+
+                        <div class="temperature">
+                            <span id="temperature">--</span>
+                            <sup>°C</sup>
+                        </div>
+
+                        <div
+                            class="weather-description"
+                            id="weatherDescription"
+                        >
+                            Loading...
+                        </div>
+
+                        <div class="feels-like">
+                            Feels like
+                            <strong id="feelsLike">--°</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="weather-date">
+                    <span id="dateTime">--</span>
+                </div>
+
+            </section>
+
+
+            <!-- Details -->
+            <section class="content-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">
+                            WEATHER DETAILS
+                        </span>
+
+                        <h2>Today's Conditions</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="details-grid">
+
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">
+                            💧
+                        </div>
+
+                        <div>
+                            <span>Humidity</span>
+                            <strong id="humidity">--%</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">
+                            💨
+                        </div>
+
+                        <div>
+                            <span>Wind Speed</span>
+                            <strong id="wind">-- km/h</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">
+                            👁️
+                        </div>
+
+                        <div>
+                            <span>Visibility</span>
+                            <strong id="visibility">-- km</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">
+                            🌧️
+                        </div>
+
+                        <div>
+                            <span>Rain Chance</span>
+                            <strong id="rainChance">--%</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Sunrise Sunset -->
+            <section class="content-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">
+                            SUN
+                        </span>
+
+                        <h2>Sunrise & Sunset</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="sun-grid">
+
+                    <div class="sun-card sunrise-card">
+
+                        <div class="sun-visual">
+                            🌅
+                        </div>
+
+                        <div>
+                            <span>Sunrise</span>
+                            <strong id="sunrise">--:--</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="sun-card sunset-card">
+
+                        <div class="sun-visual">
+                            🌇
+                        </div>
+
+                        <div>
+                            <span>Sunset</span>
+                            <strong id="sunset">--:--</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Hourly -->
+            <section
+                class="content-section"
+                id="hourly"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">
+                            NEXT HOURS
+                        </span>
+
+                        <h2>Hourly Forecast</h2>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="hourly-container"
+                    id="hourlyForecast"
+                ></div>
+
+            </section>
+
+
+            <!-- 7 Days -->
+            <section
+                class="content-section"
+                id="forecast"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">
+                            WEEK AHEAD
+                        </span>
+
+                        <h2>7-Day Forecast</h2>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="daily-container"
+                    id="dailyForecast"
+                ></div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-logo">
+                Weatherly
+            </div>
+
+            <p>
+                Real-time weather information powered by Open-Meteo
+            </p>
+
+            <span>
+                © 2026 Weatherly
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
